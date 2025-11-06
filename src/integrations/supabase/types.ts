@@ -14,7 +14,128 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      comparisons: {
+        Row: {
+          created_at: string
+          differences: Json
+          excel_id: string
+          id: string
+          pdf_id: string
+        }
+        Insert: {
+          created_at?: string
+          differences: Json
+          excel_id: string
+          id?: string
+          pdf_id: string
+        }
+        Update: {
+          created_at?: string
+          differences?: Json
+          excel_id?: string
+          id?: string
+          pdf_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comparisons_excel_id_fkey"
+            columns: ["excel_id"]
+            isOneToOne: false
+            referencedRelation: "excel_uploads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comparisons_pdf_id_fkey"
+            columns: ["pdf_id"]
+            isOneToOne: false
+            referencedRelation: "pdf_uploads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      excel_data: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          row_index: number
+          upload_id: string
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          id?: string
+          row_index: number
+          upload_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          row_index?: number
+          upload_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "excel_data_upload_id_fkey"
+            columns: ["upload_id"]
+            isOneToOne: false
+            referencedRelation: "excel_uploads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      excel_uploads: {
+        Row: {
+          columns: string[]
+          created_at: string
+          file_name: string
+          id: string
+          row_count: number
+          upload_date: string
+        }
+        Insert: {
+          columns: string[]
+          created_at?: string
+          file_name: string
+          id?: string
+          row_count?: number
+          upload_date?: string
+        }
+        Update: {
+          columns?: string[]
+          created_at?: string
+          file_name?: string
+          id?: string
+          row_count?: number
+          upload_date?: string
+        }
+        Relationships: []
+      }
+      pdf_uploads: {
+        Row: {
+          created_at: string
+          file_name: string
+          id: string
+          parsed_content: string | null
+          upload_date: string
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          id?: string
+          parsed_content?: string | null
+          upload_date?: string
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          id?: string
+          parsed_content?: string | null
+          upload_date?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
